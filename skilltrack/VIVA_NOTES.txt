@@ -1,0 +1,34 @@
+SKILLTRACK - VIVA NOTES (all in SkillTrackEngine.java)
+
+What the project does:
+  Takes a student's certificates, projects and coding practice,
+  gives a placement readiness score out of 100, and lists what to fix.
+
+OOP concept -> where it is in the code
+  Interface       Scorable                  one method: calculateScoreContribution()
+  Abstract class  Certification             shared fields; getType() left for subclasses
+  Inheritance     TechCert, SoftSkillCert   extend Certification (15 and 5 points)
+  Polymorphism    Student.calculateReadinessScore()
+                  one List<Scorable> holds certs, projects and coding profile;
+                  the same method call gives different points per object
+  Encapsulation   private fields + getters; constructors check bad input
+  Enum            Complexity                EASY=6, MEDIUM=12, HARD=20 points
+  Exception       InvalidInputException     custom checked exception
+  Collections     ArrayList                 certifications, projects, gaps
+  instanceof      Student.countTechCerts()  counts only TechCert objects
+
+Scoring rules
+  Tech cert 15 | Soft cert 5 | Easy 6 | Medium 12 | Hard 20
+  Coding = LeetCode*0.2 + GFG*0.1 + HackerRank stars*5, capped at 35
+  Total capped at 100
+
+Likely viva questions
+  Q: Why abstract class AND interface?
+  A: Interface = what every scorable thing can do. Abstract class = shared
+     data (title, platform, date) for certifications only.
+  Q: Where is polymorphism?
+  A: The loop in calculateReadinessScore(): item.calculateScoreContribution()
+  Q: Why a custom exception?
+  A: To give clear messages (empty title, negative counts) instead of crashing.
+  Q: Why enum for complexity?
+  A: Only 3 valid values, each with fixed points. A String could be mistyped.
